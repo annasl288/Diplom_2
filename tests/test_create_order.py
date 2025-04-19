@@ -1,4 +1,4 @@
-from helpers import ResponseText
+from data import TestData, ResponseText
 from methods import Methods
 import allure
 
@@ -32,6 +32,6 @@ class TestCreateOrder:
     @allure.title('Создание заказа с неверным хешем ингредиента')
     def test_create_order_with_incorrect_hash_error(self):
 
-        response = Methods.create_order("", "07c0c5a71d2f852001bdsha6c")
+        response = Methods.create_order("", TestData.incorrect_hash)
 
         assert response.status_code == 500

@@ -1,6 +1,6 @@
 import pytest
 import allure
-from helpers import RandomUser, ResponseText
+from data import TestData, ResponseText
 from methods import Methods
 
 class TestNewUser:
@@ -24,7 +24,7 @@ class TestNewUser:
     @pytest.mark.parametrize("field", ["email", "password", "name"])
     def test_create_new_user_without_one_field_error(self, field):
 
-        user_data = RandomUser.generate_random_user()
+        user_data = TestData.generate_random_user()
         user_data.pop(field)
         response = Methods.create_new_user(user_data)
 

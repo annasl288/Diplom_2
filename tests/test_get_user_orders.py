@@ -1,5 +1,5 @@
 from methods import Methods
-from helpers import ResponseText
+from data import ResponseText
 import allure
 
 class TestGetUserOrder:

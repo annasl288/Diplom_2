@@ -1,6 +1,6 @@
 import requests
 import allure
-from helpers import Urls, Endpoints
+from urls import Urls
 
 class Methods:
 
@@ -8,7 +8,7 @@ class Methods:
     @allure.step('Отправить запрос на создание нового пользователя')
     def create_new_user(user_data):
 
-        response = requests.post(f'{Urls.api}{Endpoints.registration}', data = user_data)
+        response = requests.post(Urls.registration, data = user_data)
 
         return response
 
@@ -17,7 +17,7 @@ class Methods:
 
     def user_login(user_data):
 
-        response = requests.post(f'{Urls.api}{Endpoints.authorization}', data = user_data)
+        response = requests.post(Urls.authorization, data = user_data)
 
         return response
 
@@ -27,7 +27,7 @@ class Methods:
     def change_user_data(token, new_data):
 
         headers = {"Authorization": token}
-        response = requests.patch(f'{Urls.api}{Endpoints.user}', headers = headers, data = new_data)
+        response = requests.patch(Urls.user, headers = headers, data = new_data)
 
         return response
 
@@ -36,7 +36,7 @@ class Methods:
 
     def get_ingredients():
 
-        response = requests.get(f'{Urls.api}{Endpoints.ingredients}')
+        response = requests.get(Urls.ingredients)
 
         ingredients = []
         for i in response.json()["data"]:
@@ -51,16 +51,21 @@ class Methods:
 
         headers = {"Authorization": token}
         ids = {"ingredients": ingredients}
-        response = requests.post(f'{Urls.api}{Endpoints.orders}', headers = headers, data = ids)
+        response = requests.post(Urls.orders, headers = headers, data = ids)
 
         return response
 
     @staticmethod
     @allure.step('Отправить запрос на получение списка заказов пользователя')
-
     def get_user_orders(token):
 
         headers = {"Authorization": token}
-        response = requests.get(f'{Urls.api}{Endpoints.orders}', headers = headers)
+        response = requests.get(Urls.orders, headers = headers)
 
         return response
+
+    @staticmethod
+    @allure.step('Удалить пользователя')
+    def delete_user():
+
+        response = requests.delete(Urls.user)

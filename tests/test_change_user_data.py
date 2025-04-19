@@ -2,7 +2,7 @@ import pytest
 import allure
 from faker import Faker
 from methods import Methods
-from helpers import ResponseText
+from data import ResponseText
 
 class TestChangeUserData:
 
